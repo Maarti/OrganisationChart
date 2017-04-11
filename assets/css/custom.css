@@ -8,7 +8,7 @@ body, html{
 }
 
 body{
-	background 			: url('../images/bkgd.png') repeat top left;
+	background 			: url('../img/bkgd.png') repeat top left;
 	color 				: white;
 	font-family 		: tahoma;
 	font-weight 		: lighter;

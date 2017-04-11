@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Organisation Chart</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"/>
@@ -13,7 +13,7 @@
     <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
     
     <script src="assets/js/jquery.jOrgChart.js"></script>
-
+	<script src="data/data1.js" ></script>
     <script>
     jQuery(document).ready(function() {
         $("#org").jOrgChart({
@@ -42,50 +42,97 @@
         </div>
     </div>
     
-    <ul id="org" style="display:none">
-    <li>
-       Food
-       <ul>
-         <li id="beer">Beer</li>
-         <li>Vegetables
-           Click me
-           <ul>
-             <li>Pumpkin</li>
-             <li>
-                <a href="http://tquila.com" target="_blank">Aubergine</a>
-                <p>A link and paragraph is all we need.</p>
-             </li>
-           </ul>
-         </li>
-         <li class="fruit">Fruit
-           <ul>
-             <li>Apple
-               <ul>
-                 <li>Granny Smith</li>
-               </ul>
-             </li>
-             <li>Berries
-               <ul>
-                 <li>Blueberry</li>
-                 <li><img src="assets/img/raspberry.jpg" alt="Raspberry"/></li>
-                 <li>Cucumber</li>
-               </ul>
-             </li>
-           </ul>
-         </li>
-         <li>Bread</li>
-         <li class="collapsed">Chocolate
-           <ul>
-             <li>Topdeck</li>
-             <li>Reese's Cups</li>
-           </ul>
-         </li>
-       </ul>
-     </li>
-   </ul>            
+	<ul id="org" style="display:none"></ul>
+             
     
     <div id="chart" class="orgChart"></div>
+
     
+<script>
+	console.log("data = "+data.length);
+	var ul = document.getElementById('org');
+	var lastLi;
+	//for(var i in data) {
+	//for(i=0; i<20 ; i++) {
+		//var display = data[i].nom+" "+data[i].prenom
+		//console.log(i,display );
+		var display = data[0].nom+" "+data[0].prenom
+		var li = document.createElement('li');
+		ul.appendChild(li);
+		li.innerHTML=li.innerHTML + display;
+		li.dataset.name = data[0].prenom+" "+data[0].nom;
+		
+		
+		/*while(isChild()){
+			var htmlChildren = li.firstElementChild.children;
+			var children = findChildren(li.dataset.name);
+			drawChildren(li,children);
+		}*/
+		
+		var children = findChildren(li.dataset.name);
+		drawChildren(li,children);
+		/*if (children.length > 0){
+			console.log(display, "enfant =",children );
+			ulChild = document.createElement('ul');
+			li.appendChild(ulChild);
+			for(var i in children) {
+				var liChild = document.createElement('li');
+				ulChild.appendChild(liChild);
+				display = children[i].nom+" "+children[i].prenom;
+				liChild.innerHTML=liChild.innerHTML + display;
+				liChild.dataset.name = children[i].prenom+" "+children[i].nom;
+			}
+		}*/
+		
+		/*var htmlChildren = li.firstElementChild.children;
+		for(var i=0;i<htmlChildren.length;i++){
+			//console.log(i, htmlChildren[i].dataset.name);
+			children = findChildren(htmlChildren[i].dataset.name);
+			console.log(i, children);
+			drawChildren(htmlChildren[i],children);
+		}*/
+			
+		//t = document.createTextNode(display);
+		//li.innerHTML=li.innerHTML + display;
+		console.log("data = "+data.length);
+	//}
+	
+	function findChildren(hierarchy) {
+		var children = [];
+		var indexes = [];
+		for(var i in data) {
+			if (data[i].hierarchie == hierarchy) {
+				children.push(data[i]);
+				indexes.push(i);
+			}
+		}
+		// On supprime les éléments du tableau d'origine afin de ne plus itérer dessus (performances)
+		/*if(indexes.length>0){
+			for(var i in indexes) {
+				data.splice(indexes[i],1);
+			}
+		}		*/
+		return children;
+	}
+	
+	function drawChildren(li,children){
+		if (children.length > 0){
+			var ulChild = document.createElement('ul');
+			li.appendChild(ulChild);
+			for(var i in children) {
+				var liChild = document.createElement('li');
+				ulChild.appendChild(liChild);
+				display = children[i].nom+" "+children[i].prenom;
+				liChild.innerHTML=liChild.innerHTML + display;
+				liChild.dataset.name = children[i].prenom+" "+children[i].nom;
+				var c  = findChildren(liChild.dataset.name);
+				drawChildren(liChild,c);
+			}
+		}
+	}
+	</script>
+	
+	
     <script>
         jQuery(document).ready(function() {
             
