@@ -139,17 +139,21 @@
           var $tr = $this.closest("tr");
 
           if($tr.hasClass('contracted')){
-            $this.css('cursor','n-resize');
+            //$this.css('cursor','n-resize');
+			$this.css('cursor','zoom-out');
             $tr.removeClass('contracted').addClass('expanded');
             $tr.nextAll("tr").css('visibility', '');
+			//$tr.nextAll("tr").css('display', 'block');
 
             // Update the <li> appropriately so that if the tree redraws collapsed/non-collapsed nodes
             // maintain their appearance
             $node.removeClass('collapsed');
           }else{
-            $this.css('cursor','s-resize');
+            //$this.css('cursor','s-resize');
+			$this.css('cursor','zoom-in');
             $tr.removeClass('expanded').addClass('contracted');
             $tr.nextAll("tr").css('visibility', 'hidden');
+			//$tr.nextAll("tr").css('display', 'none');
 
             $node.addClass('collapsed');
           }
@@ -162,7 +166,8 @@
 
     if($childNodes.length > 0) {
       // if it can be expanded then change the cursor
-      $nodeDiv.css('cursor','n-resize');
+      //$nodeDiv.css('cursor','n-resize');
+	  $this.css('cursor','zoom-out');
     
       // recurse until leaves found (-1) or to the level specified
       if(opts.depth == -1 || (level+1 < opts.depth)) { 
@@ -212,9 +217,11 @@
             if (item == 'collapsed') {
                 console.log($node);
                 $nodeRow.nextAll('tr').css('visibility', 'hidden');
+				//$nodeRow.nextAll('tr').css('display', 'none');
                     $nodeRow.removeClass('expanded');
                     $nodeRow.addClass('contracted');
-                    $nodeDiv.css('cursor','s-resize');
+                    //$nodeDiv.css('cursor','s-resize');
+					$nodeDiv.css('cursor','zoom-in');
             } else {
                 $nodeDiv.addClass(item);
             }
