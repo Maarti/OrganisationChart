@@ -122,7 +122,7 @@
 			for(var i in children) {
 				var liChild = document.createElement('li');
 				ulChild.appendChild(liChild);
-				display = children[i].nom+" "+children[i].prenom;
+				display = children[i].nom+" "+children[i].prenom/*+"<br/>"+children[i].service*/;
 				liChild.innerHTML=liChild.innerHTML + display;
 				liChild.dataset.name = children[i].prenom+" "+children[i].nom;
 				var c  = findChildren(liChild.dataset.name);

@@ -142,8 +142,8 @@
             //$this.css('cursor','n-resize');
 			$this.css('cursor','zoom-out');
             $tr.removeClass('contracted').addClass('expanded');
-            $tr.nextAll("tr").css('visibility', '');
-			//$tr.nextAll("tr").css('display', 'block');
+            //$tr.nextAll("tr").css('visibility', '');
+			$tr.nextAll("tr").css('display', 'table-row');
 
             // Update the <li> appropriately so that if the tree redraws collapsed/non-collapsed nodes
             // maintain their appearance
@@ -152,8 +152,8 @@
             //$this.css('cursor','s-resize');
 			$this.css('cursor','zoom-in');
             $tr.removeClass('expanded').addClass('contracted');
-            $tr.nextAll("tr").css('visibility', 'hidden');
-			//$tr.nextAll("tr").css('display', 'none');
+            //$tr.nextAll("tr").css('visibility', 'hidden');
+			$tr.nextAll("tr").css('display', 'none');
 
             $node.addClass('collapsed');
           }
@@ -170,7 +170,8 @@
 	  $this.css('cursor','zoom-out');
     
       // recurse until leaves found (-1) or to the level specified
-      if(opts.depth == -1 || (level+1 < opts.depth)) { 
+      if(opts.depth == -1 || (level+1 < opts.depth)) {
+	  
         var $downLineRow = $("<tr/>");
         var $downLineCell = $("<td/>").attr("colspan", $childNodes.length*2);
         $downLineRow.append($downLineCell);
@@ -216,8 +217,8 @@
         $.each(classList, function(index,item) {
             if (item == 'collapsed') {
                 console.log($node);
-                $nodeRow.nextAll('tr').css('visibility', 'hidden');
-				//$nodeRow.nextAll('tr').css('display', 'none');
+                //$nodeRow.nextAll('tr').css('visibility', 'hidden');
+				$nodeRow.nextAll('tr').css('display', 'none');
                     $nodeRow.removeClass('expanded');
                     $nodeRow.addClass('contracted');
                     //$nodeDiv.css('cursor','s-resize');
