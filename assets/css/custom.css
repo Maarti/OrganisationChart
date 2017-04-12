@@ -84,9 +84,23 @@ a:hover{
 	color 				: #F38630;
 	-moz-border-radius 	: 8px;
 }
-	.node p{
-		font-family 	: tahoma;
-		font-size 		: 10px;
-		line-height 	: 11px;
-		padding 		: 2px;
-	}
+.node p{
+	font-family 	: tahoma;
+	font-size 		: 10px;
+	line-height 	: 11px;
+	padding 		: 2px;
+}
+	
+/* Custom */
+.service{
+	font-size:80%;
+	margin-top:6px;
+	color : white;
+}
+
+.site{
+	font-size:80%;
+	margin-top:3px;
+	color : LightGrey;
+	font-style: italic;
+}

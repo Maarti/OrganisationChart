@@ -52,50 +52,16 @@
 	console.log("data = "+data.length);
 	var ul = document.getElementById('org');
 	var lastLi;
-	//for(var i in data) {
-	//for(i=0; i<20 ; i++) {
-		//var display = data[i].nom+" "+data[i].prenom
-		//console.log(i,display );
-		var display = data[0].nom+" "+data[0].prenom
-		var li = document.createElement('li');
-		ul.appendChild(li);
-		li.innerHTML=li.innerHTML + display;
-		li.dataset.name = data[0].prenom+" "+data[0].nom;
-		
-		
-		/*while(isChild()){
-			var htmlChildren = li.firstElementChild.children;
-			var children = findChildren(li.dataset.name);
-			drawChildren(li,children);
-		}*/
+	var display = data[0].nom+" "+data[0].prenom
+	var li = document.createElement('li');
+	ul.appendChild(li);
+	li.innerHTML=li.innerHTML + display;
+	li.dataset.name = data[0].prenom+" "+data[0].nom;
 		
 		var children = findChildren(li.dataset.name);
 		drawChildren(li,children);
-		/*if (children.length > 0){
-			console.log(display, "enfant =",children );
-			ulChild = document.createElement('ul');
-			li.appendChild(ulChild);
-			for(var i in children) {
-				var liChild = document.createElement('li');
-				ulChild.appendChild(liChild);
-				display = children[i].nom+" "+children[i].prenom;
-				liChild.innerHTML=liChild.innerHTML + display;
-				liChild.dataset.name = children[i].prenom+" "+children[i].nom;
-			}
-		}*/
-		
-		/*var htmlChildren = li.firstElementChild.children;
-		for(var i=0;i<htmlChildren.length;i++){
-			//console.log(i, htmlChildren[i].dataset.name);
-			children = findChildren(htmlChildren[i].dataset.name);
-			console.log(i, children);
-			drawChildren(htmlChildren[i],children);
-		}*/
-			
-		//t = document.createTextNode(display);
-		//li.innerHTML=li.innerHTML + display;
 		console.log("data = "+data.length);
-	//}
+
 	
 	function findChildren(hierarchy) {
 		var children = [];
@@ -122,7 +88,11 @@
 			for(var i in children) {
 				var liChild = document.createElement('li');
 				ulChild.appendChild(liChild);
-				display = children[i].nom+" "+children[i].prenom/*+"<br/>"+children[i].service*/;
+				display = 
+					"<strong>"+children[i].nom+"<br/>"
+					+children[i].prenom+"</strong>"
+					+"<p class=\"service\">"+children[i].service+"</p>"
+					+"<p class=\"site\">"+children[i].site+"</p>";
 				liChild.innerHTML=liChild.innerHTML + display;
 				liChild.dataset.name = children[i].prenom+" "+children[i].nom;
 				var c  = findChildren(liChild.dataset.name);
