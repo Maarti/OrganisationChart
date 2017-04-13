@@ -84,7 +84,7 @@
 	
 	function drawChildren(li,children){
 		if (children.length > 0){			
-			var age;			
+			var age, anciennete;			
 			var ulChild = document.createElement('ul');
 			li.appendChild(ulChild);
 			for(var i in children) {
@@ -93,17 +93,21 @@
 				if("age" in children[i]){
 					// "age" contient l'age de la personne en 2017
 					age = parseInt(children[i].age)-2017+currentYear;
-					ageStr = "<p class=\"age\">"+age+" ans</p>";
+					ageStr = "\n "+age+" ans";
 				}else{
 					ageStr = "";
 				}
+				civilite = ("civilite" in children[i])? children[i].civilite : "";
+				anciennete = ("anciennete" in children[i])? "\n Ancienneté : "+children[i].anciennete : "";
+				categorie_pro = ("categorie_pro" in children[i])? "\n Catégorie : "+children[i].categorie_pro : "";				
+				tooltip = civilite + ageStr + anciennete + categorie_pro ;
 				display = 
 					"<strong>"+children[i].nom+"<br/>"
 					+children[i].prenom+"</strong>"
 					+"<p class=\"service\">"+children[i].service+"</p>"
-					+ageStr
 					+"<p class=\"site\">"+children[i].site+"</p>";
-				liChild.innerHTML=liChild.innerHTML + display;
+				liChild.innerHTML+= display;
+				liChild.innerHTML+= (tooltip != "")? '<p class="infos"  data-tooltip data-tooltip-message="'+tooltip+'"> + </p>' : '';
 				liChild.dataset.name = children[i].prenom+" "+children[i].nom;
 				var c  = findChildren(liChild.dataset.name);
 				drawChildren(liChild,c);
@@ -142,6 +146,8 @@
             });
         });
     </script>
-
+	<br/>
+	<br/>
+	<br/>
 </body>
 </html>
