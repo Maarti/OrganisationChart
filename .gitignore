@@ -1,2 +1,3 @@
 data/*
 !data/data_example.json
+!data/merging_data1_and_2.html

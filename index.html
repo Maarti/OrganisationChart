@@ -13,7 +13,7 @@
     <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
     
     <script src="assets/js/jquery.jOrgChart.js"></script>
-	<script src="data/data1.js" ></script>
+	<script src="data/merged_data1_2.js" ></script>
     <script>
     jQuery(document).ready(function() {
         $("#org").jOrgChart({
@@ -50,6 +50,7 @@
     
 <script>
 	console.log("data = "+data.length);
+	var currentYear = new Date().getFullYear();
 	var ul = document.getElementById('org');
 	var lastLi;
 	var display = data[0].nom+" "+data[0].prenom
@@ -82,16 +83,25 @@
 	}
 	
 	function drawChildren(li,children){
-		if (children.length > 0){
+		if (children.length > 0){			
+			var age;			
 			var ulChild = document.createElement('ul');
 			li.appendChild(ulChild);
 			for(var i in children) {
 				var liChild = document.createElement('li');
 				ulChild.appendChild(liChild);
+				if("age" in children[i]){
+					// "age" contient l'age de la personne en 2017
+					age = parseInt(children[i].age)-2017+currentYear;
+					ageStr = "<p class=\"age\">"+age+" ans</p>";
+				}else{
+					ageStr = "";
+				}
 				display = 
 					"<strong>"+children[i].nom+"<br/>"
 					+children[i].prenom+"</strong>"
 					+"<p class=\"service\">"+children[i].service+"</p>"
+					+ageStr
 					+"<p class=\"site\">"+children[i].site+"</p>";
 				liChild.innerHTML=liChild.innerHTML + display;
 				liChild.dataset.name = children[i].prenom+" "+children[i].nom;

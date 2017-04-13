@@ -1,0 +1,54 @@
+﻿<html>
+<head>
+	<title>Merge json files into one</title>
+	<script src="data1.js" ></script>
+	<script src="data2.js" ></script>
+</head>
+<body>
+	<h1>Merge json files into one</h1>
+	<a id="downloadAnchorElem">Download JSON</a> then go to <a href="https://jsonformatter.curiousconcept.com/">jsonformatter</a> to indent the file.
+</body>
+
+<script>
+	// On initialise la liste avec data1
+	var obj, merged=data1;
+	for(var i in data2){	
+		[index,obj] = findMatch(data2[i],data1);
+		// Si un objet de data2 est trouvé dans data1, on les fusionne et on le remplace dans le tableau
+		if (obj!=false){
+			console.log("replaced at "+index,obj);
+			merged[index]=obj;
+		}
+		// Sinon, on l'ajoute au tableau
+		else{
+			console.log("pushed at "+merged.length,data2[i]);
+			merged.push(data2[i]);
+		}
+	}
+	console.log("merged size : "+merged.length);
+		
+	var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(merged));
+	var dlAnchorElem = document.getElementById('downloadAnchorElem');
+	dlAnchorElem.setAttribute("href",dataStr);
+	dlAnchorElem.setAttribute("download", "merged_data.json");
+	//dlAnchorElem.click();
+	
+	// Recherche si une prsn (nom/prenom) est présente dans la liste d'objets
+	function findMatch(input,list){		
+		for(var i in list){
+			// Si oui, on fusionne les 2 objets
+			if(accentFold(list[i].nom) == accentFold(input.nom) && accentFold(list[i].prenom) == accentFold(input.prenom)){
+				obj = Object.assign(input, list[i]);
+				return [i,obj];
+			}						
+		}
+		return [false,false];		
+	}
+	
+	// Fast function to remove accent to compare strings
+	function accentFold(inStr) {
+		return inStr.replace(/([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])/g, function(str,a,c,e,i,n,o,s,u,y,ae) { if(a) return 'a'; else if(c) return 'c'; else if(e) return 'e'; else if(i) return 'i'; else if(n) return 'n'; else if(o) return 'o'; else if(s) return 's'; else if(u) return 'u'; else if(y) return 'y'; else if(ae) return 'ae'; });
+	}
+</script>
+
+</html>
