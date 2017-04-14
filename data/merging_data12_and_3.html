@@ -1,8 +1,8 @@
 ﻿<html>
 <head>
 	<title>Merge json files into one</title>
-	<script src="data1.js" ></script>
-	<script src="data2.js" ></script>
+	<script src="merged_data1_2.js" ></script>
+	<script src="data3.js" ></script>
 </head>
 <body>
 	<h1>Merge json files into one</h1>
@@ -10,29 +10,19 @@
 </body>
 
 <script>
-	// On remplace l'age par l'année de naissance
-	var age;
-	for(var i in data2){
-		age = data2[i].age;
-		data2[i].annee_naissance = 2016 - age;
-		delete data2[i].age;
-	}
-</script>
-
-<script>
 	// On initialise la liste avec data1
-	var obj, merged=data1;
-	for(var i in data2){	
-		[index,obj] = findMatch(data2[i],data1);
-		// Si un objet de data2 est trouvé dans data1, on les fusionne et on le remplace dans le tableau
+	var obj, merged=data;
+	for(var i in data3){	
+		[index,obj] = findMatch(data3[i],data);
+		// Si un objet de data3 est trouvé dans data, on les fusionne et on le remplace dans le tableau
 		if (obj!=false){
 			console.log("replaced at "+index,obj);
 			merged[index]=obj;
 		}
 		// Sinon, on l'ajoute au tableau
 		else{
-			console.log("pushed at "+merged.length,data2[i]);
-			merged.push(data2[i]);
+			console.log("pushed at "+merged.length,data3[i]);
+			merged.push(data3[i]);
 		}
 	}
 	console.log("merged size : "+merged.length);
@@ -47,7 +37,7 @@
 	function findMatch(input,list){		
 		for(var i in list){
 			// Si oui, on fusionne les 2 objets
-			if(accentFold(list[i].nom) == accentFold(input.nom) && accentFold(list[i].prenom) == accentFold(input.prenom)){
+			if(accentFold(list[i].nom).toLowerCase() == accentFold(input.nom).toLowerCase() && accentFold(list[i].prenom).toLowerCase() == accentFold(input.prenom).toLowerCase()){
 				obj = Object.assign(input, list[i]);
 				return [i,obj];
 			}						

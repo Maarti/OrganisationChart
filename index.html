@@ -13,7 +13,7 @@
     <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
     
     <script src="assets/js/jquery.jOrgChart.js"></script>
-	<script src="data/merged_data1_2.js" ></script>
+	<script src="data/merged_data123.js" ></script>
     <script>
     jQuery(document).ready(function() {
         $("#org").jOrgChart({
@@ -28,13 +28,14 @@
     <div class="topbar">
         <div class="topbar-inner">
             <div class="container">
-                <a class="brand" href="#">Organisation Chart</a>
+				<a class="brand" href="#"><img alt="logo" src="assets/img/logo.png"></a>
+                <a class="brand" href="#">ORGANI<span style="color:white;">GRAMME</span></a>
                 <ul class="nav">
                     <li><a href="">Menu1</a></li>
                     <li><a href="">Menu2</a></li>                        
                 </ul>
                 <div class="pull-right">
-                    <div class="alert-message info" id="show-list">Show underlying list.</div>
+                    <div class="alert-message info" id="show-list">Liste</div>
                     
 <pre class="prettyprint lang-html" id="list-html" style="display:none"></pre>       
                 </div>              
@@ -68,7 +69,10 @@
 		var children = [];
 		var indexes = [];
 		for(var i in data) {
-			if (data[i].hierarchie == hierarchy) {
+			if ("hierarchie" in data[i] && data[i].hierarchie != "" && data[i].hierarchie == hierarchy) {
+				children.push(data[i]);
+				indexes.push(i);
+			}else if("hierarchy_auto" in data[i] && data[i].hierarchy_auto != "" && data[i].hierarchy_auto == hierarchy) {
 				children.push(data[i]);
 				indexes.push(i);
 			}
@@ -88,11 +92,16 @@
 			var ulChild = document.createElement('ul');
 			li.appendChild(ulChild);
 			for(var i in children) {
+				var formComp = formatCompare(children[i].prenom+" "+children[i].nom);
+				// Si cet élément n'existe pas déjà sur la page (garde-fou contre la récursion infinie)
+				if ($('[data-name="'+formComp+'"]').length > 0) {
+					console.log("GARDE-FOU",children[i]);
+					continue;
+				}
 				var liChild = document.createElement('li');
 				ulChild.appendChild(liChild);
-				if("age" in children[i]){
-					// "age" contient l'age de la personne en 2017
-					age = parseInt(children[i].age)-2017+currentYear;
+				if("annee_naissance" in children[i]){
+					age = currentYear-parseInt(children[i].annee_naissance);
 					ageStr = "\n "+age+" ans";
 				}else{
 					ageStr = "";
@@ -108,11 +117,16 @@
 					+"<p class=\"site\">"+children[i].site+"</p>";
 				liChild.innerHTML+= display;
 				liChild.innerHTML+= (tooltip != "")? '<p class="infos"  data-tooltip data-tooltip-message="'+tooltip+'"> + </p>' : '';
-				liChild.dataset.name = children[i].prenom+" "+children[i].nom;
-				var c  = findChildren(liChild.dataset.name);
+				liChild.dataset.name = formComp;
+				var c  = findChildren(children[i].prenom+" "+children[i].nom);
 				drawChildren(liChild,c);
 			}
 		}
+	}
+	
+	// Fast function to remove accent to compare strings
+	function formatCompare(inStr) {
+		return inStr.replace(/([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])|([-'])/g, function(str,a,c,e,i,n,o,s,u,y,ae,tiret) { if(a) return 'a'; else if(c) return 'c'; else if(e) return 'e'; else if(i) return 'i'; else if(n) return 'n'; else if(o) return 'o'; else if(s) return 's'; else if(u) return 'u'; else if(y) return 'y'; else if(ae) return 'ae'; else if(tiret) return ' '; }).toLowerCase();
 	}
 	</script>
 	

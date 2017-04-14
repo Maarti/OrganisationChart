@@ -24,12 +24,12 @@ body{
 		}
 
 h1 {
-	color 				: #E05E00;	
+	color 				: #FE0A24;	
 	font-style 			: italic;
 }
 
 a{
-	color 				: #E05E00;	
+	color 				: #FE0A24;	
 	text-decoration		: none;
 }
 
@@ -44,7 +44,7 @@ a:hover{
 
 /* Header */
 .brand{
-	color 				: #E05E00 !important;	
+	color 				: #FE0A24 !important;	
 	font-family 		: georgia;
 	font-style 			: italic;
 }
@@ -78,10 +78,10 @@ a:hover{
 /* Custom node styling */
 .jOrgChart .node {
 	font-size 			: 14px;
-	background-color 	: #35363B;
+	background-color 	: #000101;
 	border-radius 		: 8px;
 	border 				: 5px solid white;
-	color 				: #F38630;
+	color 				: #FE0A24;
 	-moz-border-radius 	: 8px;
 }
 .node p{
@@ -104,8 +104,8 @@ p.infos[data-tooltip] {
 }
 
 [data-tooltip]:before {
-  border-bottom: .6em solid #09f;
-  border-bottom: .6em solid rgba(0,153,255,0.8);
+  border-bottom: .6em solid #FE0A24;
+  border-bottom: .6em solid rgba(254,10,36,0.8);
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   content: "";
@@ -114,10 +114,10 @@ p.infos[data-tooltip] {
 }
 
 [data-tooltip]:after {
-  background-color: #0099ff;
-  background-color: rgba(0,153,255,0.8);
-  border: 4px solid #0099ff;
-  border: 4px solid rgba(0,153,255,0.8);
+  background-color: #000101;
+  background-color: rgba(0,1,1,0.8);
+  border: 4px solid #FE0A24;
+  border: 4px solid rgba(254,10,36,0.8);
   border-radius: 7px;
   color: #ffffff;
   content: /*attr(data-tooltip-label) ":\A"*/ attr(data-tooltip-message);

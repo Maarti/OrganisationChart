@@ -1,0 +1,93 @@
+﻿<html>
+<head>
+	<title>Merge json files into one</title>
+	<script src="data123.js" ></script>
+</head>
+<body>
+	<h1>Merge json files into one</h1>
+	<a id="downloadAnchorElem">Download JSON</a> then go to <a href="https://jsonformatter.curiousconcept.com/">jsonformatter</a> to indent the file.
+</body>
+
+<script>
+	// Recherche de la hierarchie. On recherche les personnes du même service et on devine le leader.
+	var serv, lstServices, leader, serviceField;
+	for(var i in data123) {
+		if ("service_code" in data123[i]){
+			serv = data123[i].service_code;
+			serviceField = "service_code";
+		}else if("service" in data123[i]){
+			serv = data123[i].service;
+			serviceField = "service";
+		}else{
+			console.log("CONTINUE car pas de service ni service_code",data123[i]);
+			continue;
+		}
+		lstServ = getAllServices(serv,data123,serviceField);
+		leader = getLeader(lstServ);
+		 
+		// On renseigne la hierarchie_auto, sauf si elle est identique  la personne elle-meme
+		var fullname = accentFold(data123[i].prenom+" "+data123[i].nom).toLowerCase();
+		console.log("fullname = "+fullname,"leader = "+leader);
+		if(fullname != accentFold(leader).toLowerCase()){
+			data123[i].hierarchie_auto = leader;
+		}
+	}	
+	console.log("total data size : "+data123.length);
+	
+	// On génère le fichier
+	var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data123));
+	var dlAnchorElem = document.getElementById('downloadAnchorElem');
+	dlAnchorElem.setAttribute("href",dataStr);
+	dlAnchorElem.setAttribute("download", "merged_data.json");
+	
+	
+	
+	
+	
+	
+	
+	// Retourne tous les membres d'un service
+	function getAllServices(service,data,serviceField){
+		var lstServices = [];
+		for(var i in data) {
+			if (data[i][serviceField] == service){
+				lstServices.push(data[i]);
+			}
+		}
+		return lstServices;
+	}
+	
+	// devine le leader d'un service
+	function getLeader(lstServ){
+		var hierachie, count={};
+		// On compte combien de fois une personne est leader au sein d'un service
+		for(var i in lstServ){
+			if("hierarchie" in lstServ[i] && lstServ[i].hierarchie!=""){
+				hierarchie =lstServ[i].hierarchie;
+				if(hierarchie in count){
+					count[hierarchie]++;
+				}else{
+					count[hierarchie]=1;
+				}
+			}
+		}
+		console.log("COUNT",count);
+		// On récupère la personne qui a le plus haut score
+		var leader, score=0;
+		for (var att in count){
+			if (count[att] > score){
+				score = count[att];
+				leader = att;
+			}
+		}
+		if(score > 0){return leader;}
+		return "";
+	}
+	
+	// Fast function to remove accent to compare strings
+	function accentFold(inStr) {
+		return inStr.replace(/([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])|([-'])/g, function(str,a,c,e,i,n,o,s,u,y,ae,tiret) { if(a) return 'a'; else if(c) return 'c'; else if(e) return 'e'; else if(i) return 'i'; else if(n) return 'n'; else if(o) return 'o'; else if(s) return 's'; else if(u) return 'u'; else if(y) return 'y'; else if(ae) return 'ae'; else if(tiret) return ' '; });
+	}
+</script>
+
+</html>
