@@ -1,0 +1,48 @@
+﻿<html>
+<head>
+	<title>Merge json files into one</title>
+	<script src="merged_data123.js" ></script>
+	<script src="replace.js" ></script>
+</head>
+<body>
+	<h1>Merge json files into one</h1>
+	<a id="downloadAnchorElem">Download JSON</a> then go to <a href="https://jsonformatter.curiousconcept.com/">jsonformatter</a> to indent the file.
+</body>
+
+<script>
+	for(var i in replace){
+		var id = getIndex(replace[i],data);
+		for(var att in replace[i]){
+			data[id][att]=replace[i][att];
+		}
+	}
+	
+	// On génère le fichier
+	var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+	var dlAnchorElem = document.getElementById('downloadAnchorElem');
+	dlAnchorElem.setAttribute("href",dataStr);
+	dlAnchorElem.setAttribute("download", "merged_data123.json");
+	
+	
+	
+	
+	
+	// Retourne la position d'un objet dans le tableau de données
+	function getIndex(obj,data){
+		for(var i in data){
+			if (data[i].nom == obj.nom && data[i].prenom == obj.prenom){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	
+	
+	// Fast function to remove accent to compare strings
+	function accentFold(inStr) {
+		return inStr.replace(/([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])|([-'])/g, function(str,a,c,e,i,n,o,s,u,y,ae,tiret) { if(a) return 'a'; else if(c) return 'c'; else if(e) return 'e'; else if(i) return 'i'; else if(n) return 'n'; else if(o) return 'o'; else if(s) return 's'; else if(u) return 'u'; else if(y) return 'y'; else if(ae) return 'ae'; else if(tiret) return ' '; });
+	}
+</script>
+
+</html>

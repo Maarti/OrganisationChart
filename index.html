@@ -48,28 +48,7 @@
     
     <div id="chart" class="orgChart"></div>
 
-    
-<script>
-	console.log("data = "+data.length);
-	var currentYear = new Date().getFullYear();
-	var ul = document.getElementById('org');
-	var formComp = formatCompare(data[0].prenom+" "+data[0].nom);
-	//var lastLi;
-	//var display = data[0].nom+" "+data[0].prenom
-	//var li = document.createElement('li');
-	//ul.appendChild(li);
-	
-	var li = drawPrsn(data[0],ul,formComp);
-	
-	//li.innerHTML=li.innerHTML + display;
-	//li.dataset.name = data[0].prenom+" "+data[0].nom;
-		console.log(li);
-		var children = findChildren(li.dataset.name);
-		console.log(children);
-		drawChildren(li,children);
-		console.log("data = "+data.length);
-
-	
+	<script>
 	function findChildren(hierarchy) {
 		var children = [];
 		var indexes = [];
@@ -77,7 +56,7 @@
 			if ("hierarchie" in data[i] && data[i].hierarchie != "" && formatCompare(data[i].hierarchie) == hierarchy) {
 				children.push(data[i]);
 				indexes.push(i);
-			}else if("hierarchy_auto" in data[i] && data[i].hierarchy_auto != "" && formatCompare(data[i].hierarchy_auto) == hierarchy) {
+			}else if("hierarchie_auto" in data[i] && data[i].hierarchie_auto != "" && formatCompare(data[i].hierarchie_auto) == hierarchy) {
 				children.push(data[i]);
 				indexes.push(i);
 			}
@@ -155,7 +134,18 @@
 		return inStr.replace(/([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])|([-'])/g, function(str,a,c,e,i,n,o,s,u,y,ae,tiret) { if(a) return 'a'; else if(c) return 'c'; else if(e) return 'e'; else if(i) return 'i'; else if(n) return 'n'; else if(o) return 'o'; else if(s) return 's'; else if(u) return 'u'; else if(y) return 'y'; else if(ae) return 'ae'; else if(tiret) return ' '; }).toLowerCase();
 	}
 	</script>
+
+	<script>
+	var currentYear = new Date().getFullYear();
+	var ul = document.getElementById('org');
 	
+	// On place la première personne
+	var formComp = formatCompare(data[0].prenom+" "+data[0].nom);
+	var li = drawPrsn(data[0],ul,formComp);
+	var children = findChildren(li.dataset.name);
+	
+	drawChildren(li,children);
+	</script>	
 	
     <script>
         jQuery(document).ready(function() {
