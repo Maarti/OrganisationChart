@@ -53,14 +53,19 @@
 	console.log("data = "+data.length);
 	var currentYear = new Date().getFullYear();
 	var ul = document.getElementById('org');
-	var lastLi;
-	var display = data[0].nom+" "+data[0].prenom
-	var li = document.createElement('li');
-	ul.appendChild(li);
-	li.innerHTML=li.innerHTML + display;
-	li.dataset.name = data[0].prenom+" "+data[0].nom;
-		
+	var formComp = formatCompare(data[0].prenom+" "+data[0].nom);
+	//var lastLi;
+	//var display = data[0].nom+" "+data[0].prenom
+	//var li = document.createElement('li');
+	//ul.appendChild(li);
+	
+	var li = drawPrsn(data[0],ul,formComp);
+	
+	//li.innerHTML=li.innerHTML + display;
+	//li.dataset.name = data[0].prenom+" "+data[0].nom;
+		console.log(li);
 		var children = findChildren(li.dataset.name);
+		console.log(children);
 		drawChildren(li,children);
 		console.log("data = "+data.length);
 
@@ -69,10 +74,10 @@
 		var children = [];
 		var indexes = [];
 		for(var i in data) {
-			if ("hierarchie" in data[i] && data[i].hierarchie != "" && data[i].hierarchie == hierarchy) {
+			if ("hierarchie" in data[i] && data[i].hierarchie != "" && formatCompare(data[i].hierarchie) == hierarchy) {
 				children.push(data[i]);
 				indexes.push(i);
-			}else if("hierarchy_auto" in data[i] && data[i].hierarchy_auto != "" && data[i].hierarchy_auto == hierarchy) {
+			}else if("hierarchy_auto" in data[i] && data[i].hierarchy_auto != "" && formatCompare(data[i].hierarchy_auto) == hierarchy) {
 				children.push(data[i]);
 				indexes.push(i);
 			}
@@ -87,41 +92,62 @@
 	}
 	
 	function drawChildren(li,children){
-		if (children.length > 0){			
-			var age, anciennete;			
+		if (children.length > 0){
 			var ulChild = document.createElement('ul');
 			li.appendChild(ulChild);
 			for(var i in children) {
 				var formComp = formatCompare(children[i].prenom+" "+children[i].nom);
-				// Si cet élément n'existe pas déjà sur la page (garde-fou contre la récursion infinie)
+				// Si cet élément existe déjà sur la page (garde-fou contre la récursion infinie)
 				if ($('[data-name="'+formComp+'"]').length > 0) {
 					console.log("GARDE-FOU",children[i]);
 					continue;
 				}
-				var liChild = document.createElement('li');
-				ulChild.appendChild(liChild);
-				if("annee_naissance" in children[i]){
-					age = currentYear-parseInt(children[i].annee_naissance);
-					ageStr = "\n "+age+" ans";
-				}else{
-					ageStr = "";
-				}
-				civilite = ("civilite" in children[i])? children[i].civilite : "";
-				anciennete = ("anciennete" in children[i])? "\n Ancienneté : "+children[i].anciennete : "";
-				categorie_pro = ("categorie_pro" in children[i])? "\n Catégorie : "+children[i].categorie_pro : "";				
-				tooltip = civilite + ageStr + anciennete + categorie_pro ;
-				display = 
-					"<strong>"+children[i].nom+"<br/>"
-					+children[i].prenom+"</strong>"
-					+"<p class=\"service\">"+children[i].service+"</p>"
-					+"<p class=\"site\">"+children[i].site+"</p>";
-				liChild.innerHTML+= display;
-				liChild.innerHTML+= (tooltip != "")? '<p class="infos"  data-tooltip data-tooltip-message="'+tooltip+'"> + </p>' : '';
-				liChild.dataset.name = formComp;
-				var c  = findChildren(children[i].prenom+" "+children[i].nom);
+				var liChild = drawPrsn(children[i],ulChild,formComp);
+				var c  = findChildren(formComp);
 				drawChildren(liChild,c);
 			}
 		}
+	}
+	
+	function drawPrsn(prsn,parent,formComp){		
+		var liChild = document.createElement('li');
+		parent.appendChild(liChild);
+		if("annee_naissance" in prsn){
+			var age = currentYear-parseInt(prsn.annee_naissance);
+			var ageStr = "\n "+age+" ans";
+		}else{
+			var ageStr = "";
+		}
+		
+		// Données du tootlip
+		var civilite = ("civilite" in prsn && prsn.civilite != "")? prsn.civilite : "";
+		var anciennete = ("anciennete" in prsn && prsn.anciennete != "")? "\n Ancienneté : "+prsn.anciennete : "";
+		var categorie_pro = ("categorie_pro" in prsn && prsn.categorie_pro != "")? "\n Catégorie : "+prsn.categorie_pro : "";
+		var id = ("id" in prsn && prsn.id != "")? "\n Id : "+prsn.id : "";
+		var service_code = ("service_code" in prsn && prsn.service_code != "")? "\n "+prsn.service_code : "";
+		var tel = ("tel" in prsn && prsn.tel != "")? "\n Tel : "+prsn.tel : "";
+		var societe = ("societe" in prsn && prsn.societe != "")? "\n "+prsn.societe : "";
+		var role = ("role" in prsn && prsn.role != "")? "\n "+prsn.role : "";
+		var emplacement = ("emplacement" in prsn && prsn.emplacement != "")? "\n Emplacement : "+prsn.emplacement : "";
+		var ville = ("ville" in prsn && prsn.ville != "")? "\n "+prsn.ville : "";
+		var tooltip = civilite + ageStr + anciennete + categorie_pro + id + service_code + tel + societe + role + emplacement;
+		
+		// Données de l'encadré
+		var service = ("service" in prsn && prsn.service != "")? "\n "+prsn.service : "";
+		var site = ("service" in prsn && prsn.site != "")? "\n "+prsn.site : "";
+		var serviceStr, siteStr;
+		if(service!=""){serviceStr=service;}else if(service_code!=""){serviceStr=service_code;}
+		if(site!=""){siteStr=site;}else if(ville!=""){siteStr=ville;}else if(societe!=""){siteStr=societe;}
+		display = 
+			"<strong>"+prsn.nom+"<br/>"
+			+prsn.prenom+"</strong>"
+			+"<p class=\"service\">"+serviceStr+"</p>"
+			+"<p class=\"site\">"+siteStr+"</p>";
+			
+		liChild.innerHTML+= display;
+		liChild.innerHTML+= (tooltip != "")? '<p class="infos"  data-tooltip data-tooltip-message="'+tooltip+'"> + </p>' : '';
+		liChild.dataset.name = formComp;
+		return liChild;
 	}
 	
 	// Fast function to remove accent to compare strings
