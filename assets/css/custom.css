@@ -181,3 +181,16 @@ body{
 	background-image: -webkit-linear-gradient(top, #580000, #000000);
 	color:#fff;
 }
+
+#faq li{
+	color:#FE0A24;
+	margin-bottom:30px;
+}
+.question{
+	font-size:140%;
+	font-weight: bold;
+	margin-bottom:10px;
+}
+.reponse{
+	color:#fff;
+}

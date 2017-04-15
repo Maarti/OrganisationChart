@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Organigramme</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="assets/css/jquery.jOrgChart.css" type="text/css"/>
+    <link rel="stylesheet" href="assets/css/custom.css" type="text/css"/>
+    <link rel="stylesheet" href="assets/css/prettify.css" type="text/css"/>
+	<link rel="icon" type="image/png" href="assets/img/logo.png" />
+    <script type="text/javascript" src="assets/js/prettify.js"></script>
+    
+    <!-- jQuery includes -->
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
+    
+    <script src="assets/js/jquery.jOrgChart.js"></script>
+	<script src="data/merged_data123.js" ></script>
+    <script>
+    jQuery(document).ready(function() {
+        $("#org").jOrgChart({
+            chartElement : '#chart',
+            dragAndDrop  : true
+        });
+    });
+    </script>
+  </head>
+
+  <body >
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="container">
+				<a class="brand" href="index.html"><img alt="logo" src="assets/img/logo.png"></a>
+                <a class="brand" href="index.html">ORGANI<span style="color:white;">GRAMME</span></a>
+                <ul class="nav">
+                    <li><a href="index.html">Organigramme</a></li>
+					<li><a href="mailto:bryan.martinet-ext@socgen.fr?subject=Organigramme&body=Bonjour, je souhaiterai signaler une erreur : mon service est [...] et mon supérieur est [...]">Modification</a></li>                       
+					<li class="active"><a href="faq.html">FAQ</a></li>
+                </ul>            
+            </div>
+        </div>
+    </div>
+	
+	<div style="padding:20px;">
+	<h1>F.A.Q.</h1>
+	<br/><br/>
+	<ul id="faq">
+		<li>
+			<p class="question">Pourquoi ?</p>
+			<p class="reponse">J'ai créé ce projet pour aider mes collègues à mieux connaître leurs interlocuteurs. Ceux que nous contactons par email ou téléphone sans vraiment les connaître, ce graphique permet de situer visuellement une personne au sein d'un service.<br/>
+			Personnellement, je cherchais un projet pour développer mes compétences en Javascript et en Data Scraping. J'ai voulu joindre l'utile à l'agréable en faisant cet organigramme utile à tous plutôt qu'un projet sans fond.</p>
+		</li>
+		<li>
+			<p class="question">Où sont stockées les données ?</p>
+			<p class="reponse">[gitignore]</p>
+		</li>
+		<li>
+			<p class="question">[gitignore]</p>
+			<p class="reponse">[gitignore]</p>
+		</li>		
+	</ul>
+	<div>
+    
+	
+</body>
+</html>
