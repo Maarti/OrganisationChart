@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Organisation Chart</title>
+    <title>Organigramme</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="assets/css/jquery.jOrgChart.css" type="text/css"/>
     <link rel="stylesheet" href="assets/css/custom.css" type="text/css"/>
     <link rel="stylesheet" href="assets/css/prettify.css" type="text/css"/>
-
+	<link rel="icon" type="image/png" href="assets/img/logo.png" />
     <script type="text/javascript" src="assets/js/prettify.js"></script>
     
     <!-- jQuery includes -->
@@ -31,11 +31,10 @@
 				<a class="brand" href="#"><img alt="logo" src="assets/img/logo.png"></a>
                 <a class="brand" href="#">ORGANI<span style="color:white;">GRAMME</span></a>
                 <ul class="nav">
-                    <li><a href="">Menu1</a></li>
-                    <li><a href="">Menu2</a></li>                        
+                    <li><a href="mailto:bryan.martinet-ext@socgen.fr?subject=Organigramme&body=Bonjour, je souhaiterai signaler une erreur : mon service est [...] et mon supérieur est [...]">Modification</a></li>                       
                 </ul>
                 <div class="pull-right">
-                    <div class="alert-message info" id="show-list">Liste</div>
+                    <div class="alert-message" id="show-list">Liste</div>
                     
 <pre class="prettyprint lang-html" id="list-html" style="display:none"></pre>       
                 </div>              
@@ -43,6 +42,17 @@
         </div>
     </div>
     
+	<div id="intro">
+	<p style="font-size:16px;font-style: italic;margin-bottom:8px;">Apprenez à connaître vos interlocuteurs !</p>
+	<ul>
+		<li>Ctrl + F pour rechercher une personne</li>
+		<li>Utiliser Google Chrome</li>
+		<li>Cliquer sur une personne pour afficher/masquer sa hiérarchie</li>
+		<li>Survoler le "+" pour obtenir plus d'info</li>
+		<li><a href="mailto:bryan.martinet-ext@socgen.fr?subject=Organigramme&body=Bonjour, je souhaiterai signaler une erreur : mon service est [...] et mon supérieur est [...]">Demander une modification</a> de données​</li>
+	</ul>
+	</div>
+	
 	<ul id="org" style="display:none"></ul>
              
     
@@ -156,10 +166,10 @@
                 
                 $('#list-html').toggle('fast', function(){
                     if($(this).is(':visible')){
-                        $('#show-list').text('Hide underlying list.');
+                        $('#show-list').text('Masquer la liste');
                         $(".topbar").fadeTo('fast',0.9);
                     }else{
-                        $('#show-list').text('Show underlying list.');
+                        $('#show-list').text('Liste');
                         $(".topbar").fadeTo('fast',1);                  
                     }
                 });
@@ -176,8 +186,15 @@
             });
         });
     </script>
-	<br/>
-	<br/>
-	<br/>
+	<div class="blank"></div>
+	<footer>
+	<ul>
+		<li>Informations issues de plusieurs datascraping dont les dates d'actualisation des données diffèrent</li>
+		<li>Informations fournies sans aucune garantie de véracité</li>
+		<li>La hiérarchisation a été devinée algorithmiquement</li>
+		<li>Aucune donnée n'a été dérobée, elles sont à disposition des collaborateurs à différents endroits du SI, cet outil les a simplement regroupées et mises en forme.</li>
+	</ul>
+	<a href="http://bryan.maarti.net/?lang=en"><img src="assets/img/maarti_icon_white.png" height="26" width="26" alt="Maarti" style="float: right;"/></a>
+	</footer>
 </body>
 </html>

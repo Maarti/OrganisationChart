@@ -35,6 +35,7 @@ a{
 
 a:hover{
 	text-decoration		: underline;
+	color:#fff;
 }
 
 /* general */
@@ -149,4 +150,34 @@ p.site{
 
 p.infos{
 	font-size:18px;
+}
+
+#intro {
+	margin : 20px 0px 50px 20px;	
+}
+#intro ul li{
+	color:#929292;	
+}
+
+.blank{
+	margin-top:100px 0px 100px 0px;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+	background-color: #000101;
+	background-color: rgba(0,1,1,0.8);
+	border-top: 2px dotted #FE0A24;
+	border-top: 2px dotted rgba(254,10,36,0.8);
+}
+
+body{
+	padding-bottom:250px
+}
+
+.alert-message {
+    background-color: #000101;
+	background-image: -webkit-linear-gradient(top, #580000, #000000);
+	color:#fff;
 }
