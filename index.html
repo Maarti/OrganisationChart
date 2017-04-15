@@ -125,8 +125,8 @@
 		var service = ("service" in prsn && prsn.service != "")? "\n "+prsn.service : "";
 		var site = ("service" in prsn && prsn.site != "")? "\n "+prsn.site : "";
 		var serviceStr, siteStr;
-		if(service!=""){serviceStr=service;}else if(service_code!=""){serviceStr=service_code;}
-		if(site!=""){siteStr=site;}else if(ville!=""){siteStr=ville;}else if(societe!=""){siteStr=societe;}
+		if(service!=""){serviceStr=service;}else if(service_code!=""){serviceStr=service_code;}else{serviceStr=""}
+		if(site!=""){siteStr=site;}else if(ville!=""){siteStr=ville;}else if(societe!=""){siteStr=societe;}else{siteStr="";}
 		display = 
 			"<strong>"+prsn.nom+"<br/>"
 			+prsn.prenom+"</strong>"
